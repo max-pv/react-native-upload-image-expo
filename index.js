@@ -82,11 +82,13 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
 
     const formData = new FormData();
 
-    formData.append(payloadKey, JSON.stringify({
+    // $FlowFixMe
+    formData.append(payloadKey, {
       uri,
       name: uid(),
       type: `image/${fileType}`,
-    }));
+    });
+
 
     const options = {
       method,
