@@ -20,7 +20,10 @@ See [example](https://github.com/br4in3x/react-native-upload-image-expo/blob/mas
   endpoint="https://file-upload-example-backend-dkhqoilqqn.now.sh/upload"
   payloadKey="photo"
   onFailure={(error) => console.warn(error)}
-  onSuccess={(image) => console.log(image)}
+  onSuccess={(image, rawResponse) => {
+    console.log(`Image URL: ${image.location}`);
+    console.log('headers: ', rawResponse.headers);
+  }}
   onStartUpload={() => console.log('Upload has begun!')}
   headers={{
     'uid': '...',

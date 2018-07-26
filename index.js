@@ -55,7 +55,7 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
   }
 
   async handleImagePicked(pickerResult: ImagePickerType.ImageInfo) {
-    let uploadResponse;
+    let rawResponse;
     let uploadResult;
     const { onFailure, onSuccess } = this.props;
 
@@ -63,10 +63,10 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
       this.setState({ loading: true });
 
       if (!pickerResult.cancelled) {
-        uploadResponse = await this.uploadImageAsync(pickerResult.uri);
-        uploadResult = await uploadResponse.json();
+        rawResponse = await this.uploadImageAsync(pickerResult.uri);
+        uploadResult = await rawResponse.json();
         this.setState({ image: uploadResult });
-        if (onSuccess) onSuccess(uploadResult);
+        if (onSuccess) onSuccess(uploadResult, rawResponse);
       }
     } catch (error) {
       if (onFailure) onFailure(error);
