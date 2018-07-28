@@ -47,16 +47,16 @@ See [example](https://github.com/br4in3x/react-native-upload-image-expo/blob/mas
 
 ### Options
 
-| Property      | Type                         | Description                                                          | Required |   |
-|---------------|------------------------------|----------------------------------------------------------------------|----------|---|
-| endoint       | string                       | Your server's endpoint                                               | Yes      |   |
-| method        | enum: 'POST', 'PUT', 'PATCH' | Query method                                                         | Yes      |   |
-| payloadKey    | string                       | The key in the payload object to server ``` {   "photo": {...} } ``` | Yes      |   |
-| children      | React.Node                   | React Element where props are passed                                 | Yes      |   |
-| headers       | Object                       | Array of headers for the server request.  Useful for authorization.  | No       |   |
-| onSuccess     | Function(image, rawResponse) | A function called after upload succeeds                              | No       |   |
-| onFailure     | Function(error)              | A function called if upload fails                                    | No       |   |
-| onStartUpload | Function                     | A function called before upload begins                               | No       |   |
+| Property      | Type                         | Description                                                          | Required |
+|---------------|------------------------------|----------------------------------------------------------------------|----------|
+| endoint       | string                       | Your server's endpoint                                               | Yes      |
+| method        | enum: 'POST', 'PUT', 'PATCH' | Query method                                                         | Yes      |
+| payloadKey    | string                       | The key in the payload object to server ``` {   "photo": {...} } ``` | Yes      |
+| children      | React.Node                   | React Element where props are passed                                 | Yes      |
+| headers       | Object                       | Array of headers for the server request.  Useful for authorization.  | No       |
+| onSuccess     | Function(image, rawResponse) | A function called after upload succeeds                              | No       |
+| onFailure     | Function(error)              | A function called if upload fails                                    | No       |
+| onStartUpload | Function                     | A function called before upload begins                               | No       |
 
 ### iOS specific options
 
