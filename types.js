@@ -11,9 +11,17 @@ export type ImageUploadExpoProps = {|
   method: 'PUT' | 'PATCH' | 'POST',
   payloadKey: string,
   children: Function,
-  fileName?: string,
+  headers?: Object,
   onSuccess?: Function,
   onFailure?: Function,
   onStartUpload?: Function,
-  headers?: Object,
+  alertMessage?: string,
+  alertTitle?: string,
+  alertYes?: string,
+  alertNo?: string,
+|}
+
+export type ImagePickerType = {|
+  cancelled: boolean,
+  uri: string,
 |}

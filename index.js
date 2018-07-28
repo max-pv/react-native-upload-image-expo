@@ -1,14 +1,18 @@
 // @flow
 
 import { PureComponent } from 'react';
+import { Linking, Alert, Platform } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
 import propTypes from 'prop-types';
 import uid from 'uuid/v4';
 
-import type { ImagePicker as ImagePickerType } from 'expo';
-import type { ImageUploadExpoState, ImageUploadExpoProps } from './types';
+import type { Node } from 'react';
+import type { ImageUploadExpoState, ImageUploadExpoProps, ImagePickerType } from './types';
 
 class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExpoState> {
+  askPermission: Function;
+  showAlert: Function;
+
   static propTypes = {
     endpoint: propTypes.string.isRequired,
     method: propTypes.oneOf(['PUT', 'PATCH', 'POST']).isRequired,
@@ -17,17 +21,30 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
     onSuccess: propTypes.func,
     onFailure: propTypes.func,
     onStartUpload: propTypes.func,
+    alertMessage: propTypes.string,
+    alertTitle: propTypes.string,
+    alertNo: propTypes.string,
+    alertYes: propTypes.string,
   }
 
   static defaultProps = {
     onSuccess: undefined,
     onFailure: undefined,
     onStartUpload: undefined,
+    alertTitle: 'Please Allow Access',
+    alertMessage: [
+      'This applicaton needs access to your photo library to upload images.',
+      '\n\n',
+      'Please go to Settings of your device and grant permissions to Photos.',
+    ].join(''),
+    alertNo: 'Not Now',
+    alertYes: 'Settings',
   }
 
   constructor() {
     super();
-    (this: any).askPermission = this.askPermission.bind(this);
+    this.askPermission = this.askPermission.bind(this);
+    this.showAlert = this.showAlert.bind(this);
   }
 
   state = {
@@ -37,15 +54,18 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
   }
 
   async askPermission() {
+    // only if user allows permission to camera roll
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     const { onStartUpload } = this.props;
 
-    // only if user allows permission to camera roll
-    if (status !== 'granted') return;
-
-    if (onStartUpload) {
-      onStartUpload();
+    // On Android users are prompted every time,
+    // so no need to show additional Alert
+    if (status !== 'granted') {
+      if (Platform.OS === 'ios') this.showAlert();
+      return;
     }
+
+    if (onStartUpload) onStartUpload();
 
     const pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -54,7 +74,19 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
     this.handleImagePicked(pickerResult);
   }
 
-  async handleImagePicked(pickerResult: ImagePickerType.ImageInfo) {
+  showAlert() {
+    const { alertMessage, alertTitle, alertYes, alertNo } = this.props;
+    Alert.alert(
+      alertTitle,
+      alertMessage,
+      [
+        { text: alertNo, style: 'cancel' },
+        { text: alertYes, onPress: () => Linking.openURL('app-settings:') },
+      ],
+    );
+  }
+
+  async handleImagePicked(pickerResult: ImagePickerType) {
     let rawResponse;
     let uploadResult;
     const { onFailure, onSuccess } = this.props;
@@ -89,7 +121,6 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
       type: `image/${fileType}`,
     });
 
-
     const options = {
       method,
       body: formData,
@@ -103,7 +134,7 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
     return fetch(endpoint, options);
   }
 
-  render() {
+  render(): Node {
     const { loading, error, image } = this.state;
     const { children } = this.props;
 

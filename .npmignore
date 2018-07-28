@@ -3,3 +3,4 @@ example
 .eslint*
 .flowconfig
 .gitignore
+.editorconfig

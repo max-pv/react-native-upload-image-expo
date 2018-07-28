@@ -1,7 +1,15 @@
 // @flow
 
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Image, ActivityIndicator, Text } from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+
 import ImageUploadExpo from 'react-native-upload-image-expo';
 
 export default () => (
@@ -14,6 +22,8 @@ export default () => (
       method="POST"
       endpoint="https://file-upload-example-backend-dkhqoilqqn.now.sh/upload"
       payloadKey="photo"
+      onFailure={console.log}
+      onSuccess={console.log}
     >
       {props => (
         <TouchableOpacity
@@ -37,7 +47,7 @@ const ImageUI = ({ image, loading, error }) => {
     return (
       <Image
         source={{ uri: image.location }}
-        style={styles.images}
+        style={styles.image}
         resizeMode="cover"
       />
     );
@@ -55,6 +65,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  touchable: { height: 300, width: '100%', alignItems: 'center', justifyContent: 'center' },
+  touchable: {
+    height: 300,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   image: { width: '100%', height: 300 },
 });

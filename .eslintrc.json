@@ -33,7 +33,17 @@
       "valid-typeof": "warn",
       "no-console": "off",
       "react/prop-types": "off",
-      "jsx-a11y/accessible-emoji": "off"
+      "jsx-a11y/accessible-emoji": "off",
+      "lines-between-class-members": "off",
+      "react/sort-comp": [1, {
+        "order": [
+          "type-annotations",
+          "static-methods",
+          "lifecycle",
+          "everything-else",
+          "render"
+        ]
+      }]
   },
   "plugins": [
     "react"
