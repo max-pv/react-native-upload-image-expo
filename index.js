@@ -1,6 +1,6 @@
 // @flow
 
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import { Linking, Alert, Platform } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
 import propTypes from 'prop-types';
@@ -9,48 +9,26 @@ import uid from 'uuid/v4';
 import type { Node } from 'react';
 import type { ImageUploadExpoState, ImageUploadExpoProps, ImagePickerType } from './types';
 
-class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExpoState> {
+class ImageUploadExpo extends Component<ImageUploadExpoProps, ImageUploadExpoState> {
   askPermission: Function;
   showAlert: Function;
-
-  static propTypes = {
-    endpoint: propTypes.string.isRequired,
-    method: propTypes.oneOf(['PUT', 'PATCH', 'POST']).isRequired,
-    payloadKey: propTypes.string.isRequired,
-    children: propTypes.func.isRequired,
-    onSuccess: propTypes.func,
-    onFailure: propTypes.func,
-    onStartUpload: propTypes.func,
-    alertMessage: propTypes.string,
-    alertTitle: propTypes.string,
-    alertNo: propTypes.string,
-    alertYes: propTypes.string,
-  }
-
-  static defaultProps = {
-    onSuccess: undefined,
-    onFailure: undefined,
-    onStartUpload: undefined,
-    alertTitle: 'Please Allow Access',
-    alertMessage: [
-      'This applicaton needs access to your photo library to upload images.',
-      '\n\n',
-      'Please go to Settings of your device and grant permissions to Photos.',
-    ].join(''),
-    alertNo: 'Not Now',
-    alertYes: 'Settings',
-  }
+  static defaultProps = {};
 
   constructor() {
     super();
     this.askPermission = this.askPermission.bind(this);
     this.showAlert = this.showAlert.bind(this);
+
+    this.state = {
+      loading: false,
+      error: false,
+      image: null,
+    };
   }
 
-  state = {
-    loading: false,
-    error: false,
-    image: null,
+  componentDidCatch(error: any, info: any) {
+    this.setState({ error });
+    console.warn(error, info);
   }
 
   async askPermission() {
@@ -146,5 +124,33 @@ class ImageUploadExpo extends PureComponent<ImageUploadExpoProps, ImageUploadExp
     });
   }
 }
+
+ImageUploadExpo.propTypes = {
+  endpoint: propTypes.string.isRequired,
+  method: propTypes.oneOf(['PUT', 'PATCH', 'POST']).isRequired,
+  payloadKey: propTypes.string.isRequired,
+  children: propTypes.func.isRequired,
+  onSuccess: propTypes.func,
+  onFailure: propTypes.func,
+  onStartUpload: propTypes.func,
+  alertMessage: propTypes.string,
+  alertTitle: propTypes.string,
+  alertNo: propTypes.string,
+  alertYes: propTypes.string,
+};
+
+ImageUploadExpo.defaultProps = {
+  onSuccess: undefined,
+  onFailure: undefined,
+  onStartUpload: undefined,
+  alertTitle: 'Please Allow Access',
+  alertMessage: [
+    'This applicaton needs access to your photo library to upload images.',
+    '\n\n',
+    'Please go to Settings of your device and grant permissions to Photos.',
+  ].join(''),
+  alertNo: 'Not Now',
+  alertYes: 'Settings',
+};
 
 export default ImageUploadExpo;

@@ -49,7 +49,7 @@ See [example](https://github.com/br4in3x/react-native-upload-image-expo/blob/mas
 
 | Property      | Type                         | Description                                                          | Required |
 |---------------|------------------------------|----------------------------------------------------------------------|----------|
-| endoint       | string                       | Your server's endpoint                                               | Yes      |
+| endpoint       | string                       | Your server's endpoint                                               | Yes      |
 | method        | enum: 'POST', 'PUT', 'PATCH' | Query method                                                         | Yes      |
 | payloadKey    | string                       | The key in the payload object to server ``` {   "photo": {...} } ``` | Yes      |
 | headers       | Object                       | Array of headers for the server request.  Useful for authorization.  | No       |

@@ -1,6 +1,6 @@
 {
   "name": "react-native-upload-image-expo",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Render props style component for uploading image with Expo.ImagePicker API",
   "main": "index.js",
   "scripts": {
