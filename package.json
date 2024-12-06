@@ -16,10 +16,10 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "expo": "^28.0.0",
-    "prop-types": "^15.6.2",
-    "react": "^16.4.1",
-    "uuid": "^3.3.2"
+    "expo": "28.0.0",
+    "prop-types": "15.6.2",
+    "react": "16.4.1",
+    "uuid": "3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "8.2.6",
