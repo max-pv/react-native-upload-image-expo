@@ -14,10 +14,6 @@
     "expo",
     "image-upload"
   ],
-  "author": "Max Pimenov <max.a.pimenov@gmail.com> (https://github.com/br4in3x)",
-  "homepage": "https://github.com/br4in3x/react-native-upload-image-expo",
-  "repository": "github:br4in3x/react-native-upload-image-expo",
-  "bugs": "https://github.com/br4in3x/react-native-upload-image-expo/issues",
   "license": "MIT",
   "dependencies": {
     "expo": "^28.0.0",
@@ -26,13 +22,13 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.6",
-    "babel-plugin-module-resolver": "^3.1.1",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^17.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.10.0",
-    "flow-bin": "^0.77.0"
+    "babel-eslint": "8.2.6",
+    "babel-plugin-module-resolver": "3.1.1",
+    "eslint": "4.19.1",
+    "eslint-config-airbnb": "17.0.0",
+    "eslint-plugin-import": "2.13.0",
+    "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-react": "7.10.0",
+    "flow-bin": "0.77.0"
   }
 }
